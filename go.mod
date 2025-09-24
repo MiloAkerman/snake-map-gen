@@ -1,4 +1,4 @@
-module github.com/TheZoraiz/ascii-image-converter
+module github.com/MiloAkerman/snake-map-gen
 
 go 1.17
 

@@ -22,7 +22,7 @@ import (
 
 	_ "embed"
 
-	imgManip "github.com/TheZoraiz/ascii-image-converter/image_manipulation"
+	imgManip "github.com/MiloAkerman/snake-map-gen/image_manipulation"
 	"github.com/golang/freetype/truetype"
 
 	"github.com/fogleman/gg"

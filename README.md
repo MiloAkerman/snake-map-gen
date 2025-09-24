@@ -1,26 +1,15 @@
-# ascii-image-converter
+# snake-map-gen
+### A quick fork of [ascii-image-generator](https://github.com/TheZoraiz/ascii-image-converter)
 
-[![release-version](https://img.shields.io/github/v/release/TheZoraiz/ascii-image-converter?label=Latest%20Version)](https://github.com/TheZoraiz/ascii-image-converter/releases/latest)
-[![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/TheZoraiz/ascii-image-converter/blob/master/LICENSE.txt)
-[![language](https://img.shields.io/badge/Language-Go-blue)](https://golang.org/)
-![release-downloads](https://img.shields.io/github/downloads/TheZoraiz/ascii-image-converter/total?color=1d872d&label=Release%20Downloads)
-[![ascii-image-converter-snap](https://snapcraft.io/ascii-image-converter/badge.svg)](https://snapcraft.io/ascii-image-converter)
+snake-map-gen is a command-line tool that converts images into ascii art, and subsequently run-length encoded maps for Snake!
 
-ascii-image-converter is a command-line tool that converts images into ascii art and prints them out onto the console. Available on Windows, Linux and macOS.
-
-Now supports braille art!
-
-Input formats currently supported:
+Supported input formats:
 * JPEG/JPG
 * PNG
 * BMP
 * WEBP
 * TIFF/TIF
 * GIF
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/TheZoraiz/ascii-image-converter/master/example_gifs/all.gif">
-</p>
 
 ## Table of Contents
 

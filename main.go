@@ -16,7 +16,7 @@ limitations under the License.
 
 package main
 
-import "github.com/TheZoraiz/ascii-image-converter/cmd"
+import "github.com/MiloAkerman/snake-map-gen/cmd"
 
 func main() {
 	cmd.Execute()

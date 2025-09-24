@@ -19,8 +19,9 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"strings"
 
-	"github.com/TheZoraiz/ascii-image-converter/aic_package"
+	"github.com/MiloAkerman/snake-map-gen/aic_package"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
@@ -56,10 +57,10 @@ var (
 
 	// Root commands
 	rootCmd = &cobra.Command{
-		Use:     "ascii-image-converter [image paths/urls or piped stdin]",
-		Short:   "Converts images and gifs into ascii art",
+		Use:     "snake-map-gen [image paths/urls or piped stdin]",
+		Short:   "Converts images and gifs into compressed ascii art for snake maps",
 		Version: "1.13.1",
-		Long:    "This tool converts images into ascii art and prints them on the terminal.\nFurther configuration can be managed with flags.",
+		Long:    "This tool converts images into compressed ascii art for snake map generation and prints them on the terminal.\nFurther configuration can be managed with flags.",
 
 		// Not RunE since help text is getting larger and seeing it for every error impacts user experience
 		Run: func(cmd *cobra.Command, args []string) {
@@ -107,10 +108,80 @@ var (
 	}
 )
 
+func convertToCompressedString(input string) string {
+	var compressed strings.Builder
+	
+	for _, char := range input {
+		switch char {
+		case ' ':
+			compressed.WriteRune('E')
+		case '.':
+			compressed.WriteRune('G')
+		case '█':
+			compressed.WriteRune('W')
+		default:
+			compressed.WriteRune(char)
+		}
+	}
+	
+	compressedStr := compressed.String()
+	
+	// Calculate dimensions
+	lines := strings.Split(compressedStr, "\n")
+	height := len(lines)
+	width := 0
+	if height > 0 {
+		width = len(lines[0]) // Use first line's length as width
+	}
+	
+	// Apply run-length encoding
+	var encoded strings.Builder
+	encoded.WriteString(fmt.Sprintf("B%dx%d|", height, width))
+	
+	// Process each row separately with pipe separators
+	for rowIndex, line := range lines {
+		if len(line) == 0 {
+			// Handle empty lines
+			if rowIndex > 0 {
+				encoded.WriteString("|")
+			}
+			continue
+		}
+		
+		// Add pipe separator between rows (but not before the first row)
+		if rowIndex > 0 {
+			encoded.WriteString("|")
+		}
+		
+		// Run-length encode this row
+		currentChar := rune(line[0])
+		count := 1
+		
+		for i := 1; i < len(line); i++ {
+			char := rune(line[i])
+			if char == currentChar {
+				count++
+			} else {
+				// Write the run
+				encoded.WriteString(fmt.Sprintf("%c%d", currentChar, count))
+				currentChar = char
+				count = 1
+			}
+		}
+		
+		// Write the final run for this row
+		encoded.WriteString(fmt.Sprintf("%c%d", currentChar, count))
+	}
+	
+	return encoded.String()
+}
+
 func printAscii(imagePath string, flags aic_package.Flags) error {
 
 	if asciiArt, err := aic_package.Convert(imagePath, flags); err == nil {
-		fmt.Printf("%s", asciiArt)
+		fmt.Printf("%s\n", asciiArt)
+		compressedArt := convertToCompressedString(asciiArt)
+		fmt.Printf("%s", compressedArt)
 	} else {
 		fmt.Printf("Error: %v\n", err)
 

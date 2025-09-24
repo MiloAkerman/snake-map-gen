@@ -18,7 +18,7 @@ package image_conversions
 
 var (
 	// Reference taken from http://paulbourke.net/dataformats/asciiart/
-	asciiTableSimple   = " .:-=+*#%@"
+	asciiTableSimple   = " .█"
 	asciiTableDetailed = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
 
 	// Structure for braille dots

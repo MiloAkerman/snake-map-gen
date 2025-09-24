@@ -1,4 +1,4 @@
-project_name: ascii-image-converter
+project_name: snake-map-gen
 
 before:
   hooks:
@@ -6,6 +6,7 @@ before:
     
 builds:    
   -
+    binary: snake-map-gen
     goos:
       - linux
       - windows
@@ -67,38 +68,38 @@ changelog:
 
 brews:
   -
-    name: ascii-image-converter
+    name: snake-map-gen
 
     tap:
-      owner: TheZoraiz
-      name: homebrew-ascii-image-converter
+      owner: MiloAkerman
+      name: homebrew-snake-map-gen
 
-    url_template: https://github.com/TheZoraiz/ascii-image-converter/releases/download/{{ .Tag }}/{{ .ArtifactName }}
+    url_template: https://github.com/MiloAkerman/snake-map-gen/releases/download/{{ .Tag }}/{{ .ArtifactName }}
 
     commit_author:
-      name: Zoraiz Hassan
-      email: hzoraiz8@gmail.com
+      name: MiloAkerman
+      email: your-email@example.com
 
-    homepage: https://github.com/TheZoraiz/ascii-image-converter
-    description: Convert images into ascii art
+    homepage: https://github.com/MiloAkerman/snake-map-gen
+    description: Convert images into compressed ascii art for snake maps
     license: Apache 2.0
     skip_upload: true
 
     test: |
-      system "#{bin}/ascii-image-converter --version"
+      system "#{bin}/snake-map-gen --version"
 
     install: |
-      bin.install "ascii-image-converter"
+      bin.install "snake-map-gen"
 
 nfpms:
   -
-    package_name: ascii-image-converter
+    package_name: snake-map-gen
     file_name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Arch }}"
       
-    homepage: https://github.com/TheZoraiz/ascii-image-converter
-    vendor: Zoraiz Hassan
-    maintainer: Zoraiz Hassan <hzoraiz8@gmail.com>
-    description: Convert images into ascii art
+    homepage: https://github.com/MiloAkerman/snake-map-gen
+    vendor: MiloAkerman
+    maintainer: MiloAkerman <your-email@example.com>
+    description: Convert images into compressed ascii art for snake maps
     license: Apache 2.0
 
     formats:
