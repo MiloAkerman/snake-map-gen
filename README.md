@@ -17,7 +17,7 @@ Either download and run [the executable](https://github.com/MiloAkerman/snake-ma
 
 ## Usage
 
-In the same folder as the executable, open your command prompt and enter `snake-map-gen <PATH_TO_IMAGE>`. That easy!
+In the same folder as the executable, open your command prompt and enter `snake-map-gen.exe <PATH_TO_IMAGE>`. That easy!
 
 ![Kirby](images/kirby.png)
 
