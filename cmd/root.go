@@ -134,6 +134,46 @@ func convertToCompressedString(input string) string {
 		width = len(lines[0]) // Use first line's length as width
 	}
 	
+	// Find the 'E' position most heavily surrounded by other 'E's and replace it with 'S'
+	bestRow, bestCol := -1, -1
+	maxENeighbors := -1
+	
+	for row := 0; row < height; row++ {
+		if row >= len(lines) || len(lines[row]) == 0 {
+			continue
+		}
+		for col := 0; col < len(lines[row]); col++ {
+			if lines[row][col] == 'E' {
+				// Count 'E' neighbors in all 8 directions
+				eNeighbors := 0
+				for dr := -1; dr <= 1; dr++ {
+					for dc := -1; dc <= 1; dc++ {
+						if dr == 0 && dc == 0 {
+							continue // Skip the center position
+						}
+						newRow, newCol := row+dr, col+dc
+						if newRow >= 0 && newRow < height && newCol >= 0 && 
+							newRow < len(lines) && newCol < len(lines[newRow]) &&
+							lines[newRow][newCol] == 'E' {
+							eNeighbors++
+						}
+					}
+				}
+				if eNeighbors > maxENeighbors {
+					maxENeighbors = eNeighbors
+					bestRow, bestCol = row, col
+				}
+			}
+		}
+	}
+	
+	// Replace the best 'E' with 'S' if we found one
+	if bestRow != -1 && bestCol != -1 {
+		lineRunes := []rune(lines[bestRow])
+		lineRunes[bestCol] = 'S'
+		lines[bestRow] = string(lineRunes)
+	}
+	
 	// Apply run-length encoding
 	var encoded strings.Builder
 	encoded.WriteString(fmt.Sprintf("B%dx%d|", height, width))
